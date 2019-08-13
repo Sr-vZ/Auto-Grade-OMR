@@ -33,10 +33,16 @@ gray = cv2.bilateralFilter(gray, 11, 17, 17)
 edged = cv2.Canny(gray, 250, 300)
 
 #find the contours
-temp_img, contours, _ = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+# temp_img, contours, _ = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+temp_img, contours  = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+tmp = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+contours = tmp[0] if len(tmp) == 2 else tmp[1]
+# print(contours)
 
 #sort the contours
 contours = sorted(contours, key=cv2.contourArea, reverse=True)[:10]
+
+
 
 #find the biggest contour
 biggestContour = None

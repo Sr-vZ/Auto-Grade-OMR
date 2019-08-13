@@ -7,6 +7,7 @@ from pyzbar import pyzbar
 epsilon = 10 #image error sensitivity
 test_sensitivity_epsilon = 10 #bubble darkness error sensitivity
 answer_choices = ['A', 'B', 'C', 'D', 'E', '?'] #answer choices
+answer_choices = ['A', 'B', 'C', 'D', 'E', 'X']  # answer choices
 
 #load tracking tags
 tags = [cv2.imread("markers/top_left.png", cv2.IMREAD_GRAYSCALE),
@@ -25,6 +26,7 @@ def ProcessPage(paper):
     gray_paper = cv2.cvtColor(paper, cv2.COLOR_BGR2GRAY) #convert image to grayscale
     # codes = zbarlight.scan_codes('qrcode', Image.fromarray(np.uint8(gray_paper))) #look for QR code
     codes = pyzbar.decode(gray_paper) #look for QR code
+    print("QR : ", codes)
     corners = FindCorners(paper) #find the corners of the bubbled area
 
     #if we can't find the markers, return an error
@@ -84,7 +86,8 @@ def ProcessPage(paper):
     #draw the name if found from the QR code
     if codes is not None:
         # cv2.putText(paper, codes[0], (int(0.28*dimensions[0]), int(0.125*dimensions[1])), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 0), 1)
-        cv2.putText(paper, str(codes[0]), (int(0.28*dimensions[0]), int(0.125*dimensions[1])), cv2.FONT_HERSHEY_SIMPLEX,0.5, (0, 0, 255), 2)
+        # cv2.putText(paper, str(codes[0]), (int(0.28*dimensions[0]), int(0.125*dimensions[1])), cv2.FONT_HERSHEY_SIMPLEX,0.5, (0, 0, 255), 2)
+        pass
     else:
         codes = [-1]
     return answers, paper, codes

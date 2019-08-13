@@ -20,7 +20,10 @@ sheet = cv2.cvtColor(sheet, cv2.COLOR_BGR2GRAY)
 x_offset = 330
 y_offset = 10
 
-name = "Test name"
+x_offset = 542
+y_offset = 20
+
+name = "Sample Test"
 
 #make QR code
 qr_img = qrcode.make(name)
